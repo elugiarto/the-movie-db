@@ -12,14 +12,19 @@ class SearchBox extends React.Component {
     return (
       <StyledComp.Background>
         <StyledComp.StripeBackground />
+
         <StyledComp.TopHeaderCont>
+
           <StyledComp.TMDBLogo>
             <img src={TMDB_LOGO} alt='The Movie DB' />
           </StyledComp.TMDBLogo>
+
           <StyledComp.SearchBoxCont>
             <StyledComp.SearchBox type='text' placeholder='Search' />
           </StyledComp.SearchBoxCont>
+
         </StyledComp.TopHeaderCont>
+
       </StyledComp.Background>
     );
   }
