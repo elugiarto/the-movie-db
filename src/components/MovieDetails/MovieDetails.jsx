@@ -5,15 +5,54 @@ import BACK_ICON from './assets/back_icon.svg';
 
 /* Styled Components */
 import * as StyledComp from './MovieDetails.style';
+import { TMDB_IMAGE_PATH } from '../../constants/paths';
 
 class MovieDetails extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: null,
+      title: '',
+      release_date: '',
+      poster_path: '',
+      backdrop_path: '',
+      user_score: 0,
+      runtime: '',
+      overview: ''
+    }
+  }
+
+  componentDidMount() {
+    this.props.fetchMovieDetails(this.props.match.params.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.movie.details !== this.props.movie.details) {
+      this.setStateWithLoadedProps();
+    }
+  }
+
+  setStateWithLoadedProps() {
+    const thisMovie = this.props.movie.details;
+    this.setState({
+      id: thisMovie.id,
+      title: thisMovie.title,
+      release_date: thisMovie.release_date,
+      poster_path: thisMovie.poster_path,
+      backdrop_path: thisMovie.backdrop_path,
+      user_score: thisMovie.user_score,
+      runtime: thisMovie.runtime,
+      overview: thisMovie.overview
+    });
+  }
+
   render() {
     const bullet = '&bull;';
     return (
       <React.Fragment>
-        <StyledComp.MovieBackdrop bgImage="https://image.tmdb.org/t/p/w1280/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg">
+        <StyledComp.MovieBackdrop bgImage={`${TMDB_IMAGE_PATH}/w1280/${this.state.backdrop_path}`}>
           <StyledComp.BackBtnCont>
-            <StyledComp.BackBtn>
+            <StyledComp.BackBtn onClick={this.props.history.goBack}>
               <img src={BACK_ICON} alt="Back button" />
             </StyledComp.BackBtn>
           </StyledComp.BackBtnCont>
@@ -21,29 +60,22 @@ class MovieDetails extends React.Component {
 
         <StyledComp.MovieDetailsCont>
           <StyledComp.MoviePoster
-            src="https://image.tmdb.org/t/p/w154//or06FN3Dka5tukK1e9sl16pB3iy.jpg"
-            alt="Movie Title"
+            src={`${TMDB_IMAGE_PATH}/w154/${this.state.poster_path}`}
+            alt={`${this.state.title} poster`}
           />
           <StyledComp.MovieDetails>
-            <h1>Movie Title</h1>
+            <h1>{this.state.title}</h1>
             <p>
-              2018
+              {this.state.release_date}
               <StyledComp.DetailsConnector>&bull;</StyledComp.DetailsConnector>
-              82% User Score <br /> 2h 15min
+              {this.state.user_score}% User Score <br /> {this.state.runtime}
             </p>
           </StyledComp.MovieDetails>
         </StyledComp.MovieDetailsCont>
         <StyledComp.MovieDescription>
           <h2>Overview</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-            bibendum libero orci, nec elementum turpis porttitor at. Mauris
-            placerat quam ut tellus tincidunt interdum. Quisque nunc leo,
-            porttitor vitae dictum eu, finibus eu orci. Vestibulum rutrum vel
-            nibh et malesuada. In mi ipsum, suscipit ac metus sed, tristique
-            tristique metus. Proin quis ex mauris. Donec nisi purus, auctor
-            vitae magna ac, vestibulum faucibus risus. Pellentesque ac sapien
-            vel urna bibendum luctus a vel orci.{' '}
+            {this.state.overview}
           </p>
         </StyledComp.MovieDescription>
       </React.Fragment>

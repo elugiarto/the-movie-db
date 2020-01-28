@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import * as Colours from '../../utilities/colours';
+import { Link } from 'react-router-dom';
 
 export const IndividualMovieCont = styled.div`
   position: relative;
@@ -16,17 +17,21 @@ export const IndividualMovieCont = styled.div`
   }
 `;
 
-export const MovieLink = styled.a`
+export const MovieLink = styled(Link)`
   text-decoration: none;
 
   img {
     border-radius: 0.5em;
   }
 
+  &:hover img {
+    opacity: 0.9;
+  }
+
   h4 {
     font-size: 0.875em;
     font-weight: 400;
-    margin: 0.5em 0;
+    margin: 0;
   }
 `;
 
@@ -56,4 +61,15 @@ export const UserRating = styled.span`
       }
     }
   }};
+`;
+
+export const ImageUnavailable = styled.div`
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  width: 154px;
+  height: 231px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5em;
+  color: ${Colours.TMDB_GREEN}
 `;

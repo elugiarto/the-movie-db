@@ -5,7 +5,7 @@ import * as Colours from '../../utilities/colours';
 export const MovieBackdrop = styled.div`
   background: url(${(props) => (props.bgImage ? props.bgImage : "")}) no-repeat center center;
   background-size: cover;
-  height: 15.5em;
+  height: 55vw;
 `;
 
 export const BackBtnCont = styled.div`

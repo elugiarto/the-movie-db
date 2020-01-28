@@ -1,7 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require("webpack");
+
+require('dotenv').config();
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['babel-polyfill', './src/index.js'],
   resolve: {
     extensions: ['.jsx', '.js'],
   },
@@ -42,6 +45,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: `${__dirname}/public/index.html`,
+    }),
+    new webpack.DefinePlugin({
+      JUMBO_TMDB_API_KEY: `"${process.env.JUMBO_TMDB_API_KEY}"`
     }),
   ],
 };

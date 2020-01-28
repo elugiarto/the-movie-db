@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, Switch, BrowserRouter } from 'react-router-dom';
-import createSagaMiddleware from '@redux-saga/core';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from './redux/reducers/rootReducer';
 import { createBrowserHistory } from 'history';
 
@@ -13,18 +13,25 @@ import RootContainer from './containers/RootContainer/RootContainer';
 /* Reset CSS */
 import './layout/reset.css';
 
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, {}, sagaMiddleware);
+/* Sagas */
+import PopularMoviesSaga from './redux/saga/PopularMoviesSaga';
+import MovieDetailsSaga from './redux/saga/MovieDetailsSaga';
+import SearchMoviesSaga from './redux/saga/SearchMoviesSaga';
 
-// sagaMiddleware.run(postsSaga);
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(PopularMoviesSaga);
+sagaMiddleware.run(MovieDetailsSaga);
+sagaMiddleware.run(SearchMoviesSaga);
 
 const history = createBrowserHistory();
 
 ReactDOM.render(
-  //<Provider store={store}>
-  <BrowserRouter>
-    <RootContainer />
-  </BrowserRouter>,
-  //</Provider>,
+  <Provider store={store}>
+    <Router history={history}>
+      <RootContainer />
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );

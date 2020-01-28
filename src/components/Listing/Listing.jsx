@@ -7,25 +7,22 @@ import IndividualMovie from '../IndividualMovie/IndividualMovie';
 import * as StyledComp from './Listing.style';
 
 class Listing extends React.Component {
+  componentDidMount() {
+    this.props.fetchPopularMovies();
+  }
+
   renderMovieList() {
-    return (
-      <React.Fragment>
-        <IndividualMovie />
-        <IndividualMovie />
-        <IndividualMovie />
-        <IndividualMovie />
-        <IndividualMovie />
-        <IndividualMovie />
-        <IndividualMovie />
-        <IndividualMovie />
-      </React.Fragment>
-    );
+    if (this.props.movieList.movies.length > 0) {
+      return this.props.movieList.movies.map(movie => (
+        <IndividualMovie key={movie.id} movie={movie} />
+      ));
+    }
   }
 
   render() {
     return (
       <StyledComp.ListingCont>
-        <h2>Popular Movies</h2>
+        <h2>{this.props.movieList.title}</h2>
         <StyledComp.ListingInnerCont>
           {this.renderMovieList()}
         </StyledComp.ListingInnerCont>
