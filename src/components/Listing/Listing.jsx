@@ -24,6 +24,10 @@ class Listing extends React.Component {
       return this.props.movieList.movies.map(movie => (
         <IndividualMovie key={movie.id} movie={movie} />
       ));
+    } else {
+      return (
+        <p>No movies found.</p>
+      );
     }
   }
 
