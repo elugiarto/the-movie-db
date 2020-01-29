@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require("webpack");
+const webpack = require('webpack');
 
 require('dotenv').config();
 
@@ -15,7 +15,9 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: parseInt(process.env.PORT, 10) || 8080,
+    host: process.env.HOST | '0.0.0.0',
   },
   module: {
     rules: [
@@ -34,11 +36,11 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 10000
-            }
-          }
-        ]
-      }
+              limit: 10000,
+            },
+          },
+        ],
+      },
     ],
   },
   devtool: 'inline-source-map',
@@ -47,7 +49,7 @@ module.exports = {
       template: `${__dirname}/public/index.html`,
     }),
     new webpack.DefinePlugin({
-      JUMBO_TMDB_API_KEY: `"${process.env.JUMBO_TMDB_API_KEY}"`
+      JUMBO_TMDB_API_KEY: `"${process.env.JUMBO_TMDB_API_KEY}"`,
     }),
   ],
 };
