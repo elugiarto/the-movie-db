@@ -3,6 +3,8 @@ const webpack = require('webpack');
 
 require('dotenv').config();
 
+console.log(process.env);
+
 module.exports = {
   entry: ['babel-polyfill', './src/index.js'],
   resolve: {
@@ -16,8 +18,8 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     historyApiFallback: true,
-    port: parseInt(process.env.PORT, 10) || 8080,
-    host: process.env.HOST | '0.0.0.0',
+    port: process.env.PORT || 8080,
+    host: '0.0.0.0'
   },
   module: {
     rules: [
