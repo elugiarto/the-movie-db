@@ -16,6 +16,7 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     historyApiFallback: true,
+    disableHostCheck: true,
     port: process.env.PORT || 8080,
     host: process.env.TMDB_HOST || '0.0.0.0'
   },
