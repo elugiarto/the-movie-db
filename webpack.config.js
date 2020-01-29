@@ -16,9 +16,11 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     historyApiFallback: true,
+    // To avoid 'Invalid Host header' on Heroku.
     disableHostCheck: true,
+    // Allow listen port to be configured in environment.
     port: process.env.PORT || 8080,
-    host: process.env.TMDB_HOST || '0.0.0.0'
+    host: '0.0.0.0'
   },
   module: {
     rules: [
