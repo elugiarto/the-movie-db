@@ -37,3 +37,9 @@ Push changes to `heroku` remote to deploy changes.
 ```bash
 git push heroku master
 ```
+
+You can then view the running logs.
+
+```bash
+heroku logs --tail
+```
