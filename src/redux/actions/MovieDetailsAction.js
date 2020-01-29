@@ -22,11 +22,11 @@ export const fetchMovieDetailsSuccessAction = (details) => {
   }
 }
 
-export const fetchMovieDetailsFailureAction = () => {
+export const fetchMovieDetailsFailureAction = (errorMsg) => {
   return {
     type: FETCH_MOVIE_DETAILS_FAILURE,
     payload: {
-
+      errorMsg
     }
   }
 }

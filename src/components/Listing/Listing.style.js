@@ -17,7 +17,17 @@ export const ListingInnerCont = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   margin: 0 -1em;
+  text-align: center;
+
+  @media screen and (min-width: ${Breakpoints.XS_MAX_WIDTH}) {
+    justify-content: space-evenly;
+    text-align: left;
+  }
+`;
+
+export const ErrorMsg = styled.p`
+  padding: 0 1em;
 `;

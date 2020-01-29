@@ -21,11 +21,11 @@ export const fetchPopularMoviesSuccessAction = (title, movies) => {
   }
 }
 
-export const fetchPopularMoviesFailureAction = () => {
+export const fetchPopularMoviesFailureAction = (errorMsg) => {
   return {
     type: FETCH_POPULAR_MOVIES_FAILURE,
     payload: {
-
+      errorMsg
     }
   }
 }

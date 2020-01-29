@@ -36,6 +36,7 @@ class IndividualMovie extends React.Component {
     return (
       <img
         src={`${TMDB_IMAGE_PATH}/w154/${this.props.movie.poster_path}`}
+        alt={`${this.props.movie.title} poster`}
       />
     );
   }

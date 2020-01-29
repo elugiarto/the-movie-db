@@ -3,7 +3,8 @@ import {FETCH_MOVIE_DETAILS, FETCH_MOVIE_DETAILS_SUCCESS, FETCH_MOVIE_DETAILS_FA
 const defaultState = {
   // MovieDetails
   details: null,
-  loading: false
+  loading: false,
+  errorMsg: ''
 };
 
 export default (state = defaultState, action) => {
@@ -17,8 +18,14 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         loading: false,
-        details: action.payload.details
+        details: action.payload.details,
+        errorMsg: ''
       };
+    case FETCH_MOVIE_DETAILS_FAILURE:
+      return {
+        ...state,
+        errorMsg: action.payload.errorMsg
+      }
     default:
       return state;
   }

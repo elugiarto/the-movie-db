@@ -3,7 +3,8 @@ import {FETCH_POPULAR_MOVIES, FETCH_POPULAR_MOVIES_SUCCESS, FETCH_POPULAR_MOVIES
 const defaultState = {
   movies: [],
   loading: false,
-  title: ''
+  title: '',
+  errorMsg: ''
 };
 
 export default (state = defaultState, action) => {
@@ -18,8 +19,14 @@ export default (state = defaultState, action) => {
         ...state,
         title: action.payload.title,
         loading: false,
-        movies: action.payload.movies
+        movies: action.payload.movies,
+        errorMsg: ''
       };
+    case FETCH_POPULAR_MOVIES_FAILURE:
+      return {
+        ...state,
+        errorMsg: action.payload.errorMsg
+      }
     default:
       return state;
   }

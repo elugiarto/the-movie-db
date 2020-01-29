@@ -1,7 +1,7 @@
 import React from 'react';
 
-/* Images */
-import TMDB_LOGO from './assets/TMDB-logo.svg';
+/* Components */
+import Header from '../Header/Header';
 
 /* Styled Components */
 import * as StyledComp from './SearchBox.style';
@@ -30,24 +30,16 @@ class SearchBox extends React.Component {
 
   render() {
     return (
-      <StyledComp.Background>
-        <StyledComp.StripeBackground />
-
-        <StyledComp.TopHeaderCont>
-          <StyledComp.TMDBLogo>
-            <img src={TMDB_LOGO} alt="The Movie DB" />
-          </StyledComp.TMDBLogo>
-
-          <StyledComp.SearchBoxCont>
+      <Header>
+        <div>
             <StyledComp.SearchBox
               onChange={e => this.searchOnChange(e)}
               type="text"
               placeholder="Search"
               value={this.state.searchedTerm}
             />
-          </StyledComp.SearchBoxCont>
-        </StyledComp.TopHeaderCont>
-      </StyledComp.Background>
+          </div>
+      </Header>
     );
   }
 }

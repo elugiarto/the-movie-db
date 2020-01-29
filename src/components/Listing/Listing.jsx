@@ -12,6 +12,14 @@ class Listing extends React.Component {
   }
 
   renderMovieList() {
+    if (this.props.movieList.errorMsg !== '') {
+      return (
+        <StyledComp.ErrorMsg>
+          {this.props.movieList.errorMsg}
+        </StyledComp.ErrorMsg>
+      );
+    }
+
     if (this.props.movieList.movies.length > 0) {
       return this.props.movieList.movies.map(movie => (
         <IndividualMovie key={movie.id} movie={movie} />

@@ -1,7 +1,7 @@
 import { put, takeEvery } from '@redux-saga/core/effects';
 
 /* Actions */
-import { fetchPopularMoviesSuccessAction } from '../actions/MovieListActions';
+import { fetchPopularMoviesFailureAction, fetchPopularMoviesSuccessAction } from '../actions/MovieListActions';
 
 /* Constants */
 import { FETCH_SEARCHED_MOVIES } from '../../constants/actions';
@@ -9,6 +9,7 @@ import { POPULAR_MOVIES_TITLE, SEARCHED_MOVIES_TITLE } from '../../constants/pag
 
 /* Resources */
 import { SearchMovie, MovieList } from '../../resources/MovieResources';
+import { DEFAULT_ERROR_MESSAGE } from '../../constants/message';
 
 function* fetchSearchedMoviesAsync(action) {
   try {
@@ -25,7 +26,8 @@ function* fetchSearchedMoviesAsync(action) {
     yield put(fetchPopularMoviesSuccessAction(title, movies));
 
   } catch (e) {
-    // TODO: Implement error handling
+    yield put(fetchPopularMoviesSuccessAction('', []));
+    yield put (fetchPopularMoviesFailureAction(DEFAULT_ERROR_MESSAGE));
   }
 }
 

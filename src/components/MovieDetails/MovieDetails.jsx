@@ -6,6 +6,11 @@ import BACK_ICON from './assets/back_icon.svg';
 /* Styled Components */
 import * as StyledComp from './MovieDetails.style';
 import { TMDB_IMAGE_PATH } from '../../constants/paths';
+import {
+  XL_MAX_WIDTH,
+  M_MAX_WIDTH,
+  S_MAX_WIDTH, XS_MAX_WIDTH
+} from '../../utilities/breakpoints';
 
 class MovieDetails extends React.Component {
   constructor(props) {
@@ -18,8 +23,8 @@ class MovieDetails extends React.Component {
       backdrop_path: '',
       user_score: 0,
       runtime: '',
-      overview: ''
-    }
+      overview: '',
+    };
   }
 
   componentDidMount() {
@@ -46,11 +51,87 @@ class MovieDetails extends React.Component {
     });
   }
 
+  renderBackdrop() {
+    if(this.state.backdrop_path !== null) {
+      return (
+        <picture>
+          <source media={`(min-width: ${XL_MAX_WIDTH})`}
+                  srcSet={`${TMDB_IMAGE_PATH}/original/${this.state.backdrop_path}`}/>
+          <source media={`(min-width: ${M_MAX_WIDTH})`}
+                  srcSet={`${TMDB_IMAGE_PATH}/w1280/${this.state.backdrop_path}`}/>
+          <source media={`(min-width: ${S_MAX_WIDTH})`} srcSet={`${TMDB_IMAGE_PATH}/w780/${this.state.backdrop_path}`}/>
+          <source media={`(min-width: ${XS_MAX_WIDTH})`}
+                  srcSet={`${TMDB_IMAGE_PATH}/w300/${this.state.backdrop_path}`}/>
+          <img
+            src={`${TMDB_IMAGE_PATH}/w780/${this.state.backdrop_path}`}
+            alt={`${this.state.title}`}
+          />
+        </picture>
+      );
+    } else {
+      return (
+        <h5>Image Unavailable</h5>
+      );
+    }
+  }
+
+  renderPoster() {
+    if(this.state.poster_path !== null) {
+      return (
+        <picture>
+          <source media={`(min-width: ${XS_MAX_WIDTH})`} srcSet={`${TMDB_IMAGE_PATH}/w185/${this.state.poster_path}`}/>
+          <img
+            src={`${TMDB_IMAGE_PATH}/w154/${this.state.poster_path}`}
+            alt={`${this.state.title}`}
+          />
+        </picture>
+      );
+    } else {
+      return (
+        <StyledComp.NoPoster>
+          <p>Image Unavailable</p>
+        </StyledComp.NoPoster>
+      );
+    }
+  }
+
+  renderSpecs() {
+    if (this.props.movie.errorMsg !== '') {
+      return (
+        <StyledComp.MovieDetailsCont style={{border: '0'}}>
+          <p>{this.props.movie.errorMsg}</p>
+        </StyledComp.MovieDetailsCont>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <StyledComp.MovieDetailsCont>
+            <StyledComp.MoviePosterCont>
+              {this.renderPoster()}
+            </StyledComp.MoviePosterCont>
+            <StyledComp.MovieDetails>
+              <h1>{this.state.title}</h1>
+              <p>
+                {this.state.release_date}
+                <StyledComp.DetailsConnector>&bull;</StyledComp.DetailsConnector>
+                {this.state.user_score}% User Score <br /> {this.state.runtime}
+              </p>
+            </StyledComp.MovieDetails>
+          </StyledComp.MovieDetailsCont>
+          <StyledComp.MovieDescription>
+            <h2>Overview</h2>
+          <p>{this.state.overview}</p>
+          </StyledComp.MovieDescription>
+        </React.Fragment>
+      );
+    }
+  }
+
   render() {
-    const bullet = '&bull;';
     return (
       <React.Fragment>
-        <StyledComp.MovieBackdrop bgImage={`${TMDB_IMAGE_PATH}/w1280/${this.state.backdrop_path}`}>
+        <StyledComp.MovieBackdrop >
+          {this.renderBackdrop()}
           <StyledComp.BackBtnCont>
             <StyledComp.BackBtn onClick={this.props.history.goBack}>
               <img src={BACK_ICON} alt="Back button" />
@@ -58,26 +139,8 @@ class MovieDetails extends React.Component {
           </StyledComp.BackBtnCont>
         </StyledComp.MovieBackdrop>
 
-        <StyledComp.MovieDetailsCont>
-          <StyledComp.MoviePoster
-            src={`${TMDB_IMAGE_PATH}/w154/${this.state.poster_path}`}
-            alt={`${this.state.title} poster`}
-          />
-          <StyledComp.MovieDetails>
-            <h1>{this.state.title}</h1>
-            <p>
-              {this.state.release_date}
-              <StyledComp.DetailsConnector>&bull;</StyledComp.DetailsConnector>
-              {this.state.user_score}% User Score <br /> {this.state.runtime}
-            </p>
-          </StyledComp.MovieDetails>
-        </StyledComp.MovieDetailsCont>
-        <StyledComp.MovieDescription>
-          <h2>Overview</h2>
-          <p>
-            {this.state.overview}
-          </p>
-        </StyledComp.MovieDescription>
+        {this.renderSpecs()}
+
       </React.Fragment>
     );
   }

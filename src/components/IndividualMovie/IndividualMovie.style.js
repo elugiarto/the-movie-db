@@ -64,12 +64,13 @@ export const UserRating = styled.span`
 `;
 
 export const ImageUnavailable = styled.div`
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   width: 154px;
   height: 231px;
   align-items: center;
   justify-content: center;
   border-radius: 0.5em;
-  color: ${Colours.TMDB_GREEN}
+  color: ${Colours.TMDB_GREEN};
+  margin-bottom: 0.3em;
 `;
