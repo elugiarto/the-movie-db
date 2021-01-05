@@ -18,7 +18,7 @@
     "node": "12.14.1"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "dotenv": "^8.2.0",
     "history": "^4.10.1",
